@@ -13,6 +13,12 @@ app.use(logger("dev"))
 
 io.on("connection", (socket) => {
     console.log("User connected");
+    socket.on("message", (data) => {
+        socket.broadcast.emit("message", data)
+    })
+    socket.on("disconnect", () => {
+        console.log("User disconnected.");
+    })
 })
 
 app.get("/", (req, res) => {
